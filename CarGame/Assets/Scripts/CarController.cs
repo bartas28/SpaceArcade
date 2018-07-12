@@ -24,32 +24,30 @@ public class CarController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-		if(Input.GetAxis("Horizontal") != 0)
+	void Update ()
+    {
+        moveStraight(_speedVer);
+        if (Input.GetAxis("Horizontal") != 0)
         {
-            moveStraight(Input.GetAxis("Horizontal"));
+            moveSide(Input.GetAxis("Horizontal"));
         }
         else if(_rotationY != 0){
             straightenCar();
         }
-        if (Input.GetAxis("Vertical") != 0)
-        {
-            //Debug.Log(Time.deltaTime * Input.GetAxis("Vertical") * speedVer);
-            moveSide(Input.GetAxis("Vertical"));
-        }
     }
 
-    private void moveStraight(float hor)
+    private void moveSide(float hor)
     {
         _rotationY += _rotationSpeed * hor;
         _rotationY = Mathf.Clamp(_rotationY, -_maxRotation, _maxRotation);
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, _rotationY, transform.localEulerAngles.z);
-        _donut.RotateHorizontal(Time.deltaTime * hor * _speedHor);
+        float accelerationFactor = Mathf.Abs(_rotationY / _maxRotation);
+        _donut.RotateHorizontal(Time.deltaTime * hor * _speedHor * accelerationFactor);
     }
 
-    private void moveSide(float ver)
+    private void moveStraight(float speed)
     {
-        _donut.RotateVertical(Time.deltaTime * ver * _speedVer);
+        _donut.RotateVertical(Time.deltaTime * speed);
     }
 
     private void straightenCar()
