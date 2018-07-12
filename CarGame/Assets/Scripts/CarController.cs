@@ -12,11 +12,11 @@ public class CarController : MonoBehaviour {
     private float _speedVer = 100f;
 
     [SerializeField]
-    private float _maxRotation = 25f;
+    private float _MAX_ROTATION = 25f;
 
     private float _rotationY = 0;
     private float _rotationSpeed = 5f;
-    private float minAngle = 0.5f;  //minimum angle of car in Y axis
+    private float _MIN_ANGLE = 0.5f;  //minimum angle of car in Y axis
 
     void Start () {
         _donut = GameObject.FindGameObjectWithTag("Donut").GetComponent<Donut>();
@@ -39,9 +39,9 @@ public class CarController : MonoBehaviour {
     private void moveSide(float hor)
     {
         _rotationY += _rotationSpeed * hor;
-        _rotationY = Mathf.Clamp(_rotationY, -_maxRotation, _maxRotation);
+        _rotationY = Mathf.Clamp(_rotationY, -_MAX_ROTATION, _MAX_ROTATION);
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, _rotationY, transform.localEulerAngles.z);
-        float accelerationFactor = Mathf.Abs(_rotationY / _maxRotation);
+        float accelerationFactor = Mathf.Abs(_rotationY / _MAX_ROTATION);
         _donut.RotateHorizontal(Time.deltaTime * hor * _speedHor * accelerationFactor);
     }
 
@@ -52,7 +52,7 @@ public class CarController : MonoBehaviour {
 
     private void straightenCar()
     {
-        if(Mathf.Abs(_rotationY) < 0.5f)
+        if(Mathf.Abs(_rotationY) < _MIN_ANGLE)
         {
             _rotationY = 0;
         }

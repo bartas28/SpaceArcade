@@ -20,9 +20,7 @@ public class Donut : MonoBehaviour {
 
     public void RotateVertical(float x)
     {
-        Debug.Log(x);
         _rotatorX.Rotate(-x, 0, 0);
-        // _rotatorX.localEulerAngles = new Vector3(_rotatorX.localEulerAngles.x - x, _rotatorX.localEulerAngles.y, _rotatorX.localEulerAngles.z);
     }
 
     public void RotateHorizontal(float z)
