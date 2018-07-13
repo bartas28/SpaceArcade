@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Donut
+  - Good
+  - Enemy
+  - Fuel
   layers:
   - Default
   - TransparentFX

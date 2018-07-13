@@ -11,9 +11,11 @@ public class CarController : MonoBehaviour {
     [SerializeField]
     private float _speedVer = 100f;
     
+    [SerializeField]
     private float _MAX_ROTATION = 70f;
 
-    private float _rotationY = 0;
+    [SerializeField]
+    private float _rotationZ = 0;
     private float _rotationSpeed = 5f;
     private float _straightenSpeed = 15f;
     private float _MIN_ANGLE = 0.5f;  //minimum angle of car in Y axis
@@ -31,17 +33,23 @@ public class CarController : MonoBehaviour {
         {
             moveSide(Input.GetAxis("Horizontal"));
         }
-        else if(_rotationY != 0){
+        else if (_rotationZ != 0)
+        {
             straightenCar();
         }
+        /*if(Input.GetAxis("Vertical") != 0)
+        {
+            _speedVer = 100 + Input.GetAxis("Vertical") * 30;
+        }*/
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, -_rotationZ);
     }
 
     private void moveSide(float hor)
     {
-        _rotationY += _rotationSpeed * hor;
-        _rotationY = Mathf.Clamp(_rotationY, -_MAX_ROTATION, _MAX_ROTATION);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, _rotationY, transform.localEulerAngles.z);
-        float accelerationFactor = Mathf.Abs(_rotationY / _MAX_ROTATION);
+        _rotationZ += _rotationSpeed * hor;
+        _rotationZ = Mathf.Clamp(_rotationZ, -_MAX_ROTATION, _MAX_ROTATION);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, -_rotationZ);
+        float accelerationFactor = Mathf.Abs(_rotationZ / _MAX_ROTATION);
         _donut.RotateHorizontal(Time.deltaTime * hor * _speedHor * accelerationFactor);
     }
 
@@ -52,15 +60,15 @@ public class CarController : MonoBehaviour {
 
     private void straightenCar()
     {
-        if(Mathf.Abs(_rotationY) < _MIN_ANGLE)
+        if(Mathf.Abs(_rotationZ) < _MIN_ANGLE)
         {
-            _rotationY = 0;
+            _rotationZ = 0;
         }
         else
         {
-            _rotationY = _rotationY + _straightenSpeed * (0 - _rotationY) * Time.deltaTime;
+            _rotationZ = _rotationZ + _straightenSpeed * (0 - _rotationZ) * Time.deltaTime;
         }
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, _rotationY, transform.localEulerAngles.z);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, -_rotationZ);
     }
 
 }

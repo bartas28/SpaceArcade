@@ -14,8 +14,6 @@ public class TorusSpawn : MonoBehaviour {
     private const float _RADIUS_BIG = 1f;
     private const float _RADIUS_SMALL = 0.37f;
 
-    [SerializeField]
-    private const int _objectsMax = 5;
     private int _objectsCount;
 
     private float _spawnDelay = 2f;
@@ -31,7 +29,7 @@ public class TorusSpawn : MonoBehaviour {
     {
         while (true)
         {
-            if(_objectsCount < _objectsMax)
+            if(_objectsCount < objectPrefab.GetComponent<SpawnConfigs>().ObjectsMax)
             {
                 StartCoroutine(SpawnObject());
             }

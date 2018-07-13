@@ -5,6 +5,7 @@ using UnityEngine;
 public class LaserSpawn : MonoBehaviour {
 
     private int _LASER_COUNT_INIT = 2;
+    private int _LASER_MAX = 10;
     private int _laserCount = 0;
     private int _cycles = 0;
     private List<GameObject> _lasers;
@@ -31,6 +32,10 @@ public class LaserSpawn : MonoBehaviour {
     {
         _cycles++;
         _laserCount = _LASER_COUNT_INIT + _cycles / _CYCLING_SPEED;
+        if(_laserCount > _LASER_MAX)
+        {
+            _laserCount = _LASER_MAX;
+        }
         foreach(GameObject laser in _lasers)
         {
             Destroy(laser);
