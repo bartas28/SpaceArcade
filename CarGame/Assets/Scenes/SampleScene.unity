@@ -443,6 +443,7 @@ GameObject:
   - component: {fileID: 1503629259}
   - component: {fileID: 1503629260}
   - component: {fileID: 1503629261}
+  - component: {fileID: 1503629262}
   m_Layer: 0
   m_Name: donut
   m_TagString: Donut
@@ -499,9 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1adf268ec43e44fb6b2f4e92563e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDelay: 1
+  _preSpawn: 0
   objectPrefab: {fileID: 1858019493647994, guid: 66c65b2075c21df4aa0ad595f2451fc9,
     type: 2}
+  preObjectPrefab: {fileID: 0}
 --- !u!114 &1503629261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,9 +515,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1adf268ec43e44fb6b2f4e92563e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDelay: 1
+  _preSpawn: 1
   objectPrefab: {fileID: 1788201120544110, guid: 4c96e848e115f524b9761705b01eed80,
     type: 2}
+  preObjectPrefab: {fileID: 1073112383658356, guid: da0cd7d02f400b540bba16899521ce2b,
+    type: 2}
+--- !u!114 &1503629262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1503629256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1adf268ec43e44fb6b2f4e92563e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preSpawn: 0
+  objectPrefab: {fileID: 1245148360218710, guid: 0e63ff7cff047454fa190ecbe50636db,
+    type: 2}
+  preObjectPrefab: {fileID: 0}
 --- !u!1 &1582696825
 GameObject:
   m_ObjectHideFlags: 0

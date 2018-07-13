@@ -13,7 +13,7 @@ public class LaserSpawn : MonoBehaviour {
 
     public GameObject laserPrefab;
 
-    private int _CYCLING_SPEED = 1;  //higher = less frequently adding new lasers
+    private int _CYCLING_SPEED = 2;  //higher = less frequently adding new lasers
 
 	// Use this for initialization
 	void Start () {
