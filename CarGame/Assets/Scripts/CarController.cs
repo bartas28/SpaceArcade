@@ -10,12 +10,12 @@ public class CarController : MonoBehaviour {
     private float _speedHor = 100f;
     [SerializeField]
     private float _speedVer = 100f;
-
-    [SerializeField]
-    private float _MAX_ROTATION = 25f;
+    
+    private float _MAX_ROTATION = 70f;
 
     private float _rotationY = 0;
     private float _rotationSpeed = 5f;
+    private float _straightenSpeed = 15f;
     private float _MIN_ANGLE = 0.5f;  //minimum angle of car in Y axis
 
     void Start () {
@@ -58,7 +58,7 @@ public class CarController : MonoBehaviour {
         }
         else
         {
-            _rotationY = _rotationY + _rotationSpeed * (0 - _rotationY) * Time.deltaTime;
+            _rotationY = _rotationY + _straightenSpeed * (0 - _rotationY) * Time.deltaTime;
         }
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, _rotationY, transform.localEulerAngles.z);
     }
