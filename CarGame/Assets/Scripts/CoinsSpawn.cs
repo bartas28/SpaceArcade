@@ -40,12 +40,15 @@ public class CoinsSpawn : MonoBehaviour {
             coin = Instantiate(coinPrefab, _donutModel);
             coinRotator = coin.transform.Find("rotator").gameObject;
             coinModel = coinRotator.transform.Find("model").gameObject;
+            //rotation on small circle
             float coinModelAngle = Random.Range(0, 359);
             coinModel.transform.Rotate(new Vector3(0, coinModelAngle, 0));
             coinModelAngle = coinModelAngle / 180f * Mathf.PI;
+            //position on small circle
             float x = Mathf.Sin(coinModelAngle);
             float z = Mathf.Cos(coinModelAngle);
             coinModel.transform.localPosition = new Vector3(x * _RADIUS_SMALL, 0, z * _RADIUS_SMALL);
+            //rotation on big circle
             coinRotator.transform.localPosition = new Vector3(_RADIUS_BIG, 0, 0);
             float coinAngle = Random.Range(0, 359);
             coin.transform.Rotate(0, 0, coinAngle);
