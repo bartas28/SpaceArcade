@@ -40,7 +40,7 @@ public class Player : MonoBehaviour {
             fuel -= _currentFuelUsage;
             if (fuel <= 0f)
             {
-                die();
+                //die();
             }
             _currentFuelUsage = _fuelUsage;
             yield return new WaitForSeconds(_fuelUsageDelay);

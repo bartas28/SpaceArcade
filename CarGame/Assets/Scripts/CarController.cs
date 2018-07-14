@@ -5,6 +5,8 @@ using UnityEngine;
 public class CarController : MonoBehaviour {
 
     private Donut _donut;
+    private SideFlames _sf;
+    private MoveButton _mb;
 
     [SerializeField]
     private float _speedHor = 100f;
@@ -22,17 +24,27 @@ public class CarController : MonoBehaviour {
 
     void Start () {
         _donut = GameObject.FindGameObjectWithTag("Donut").GetComponent<Donut>();
-
+        _sf = this.gameObject.GetComponent<SideFlames>();
+        _mb = GameObject.Find("UIController").GetComponent<MoveButton>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         moveStraight(_speedVer);
+        float axisHor = _mb.Horizontal;
+#if ANDROID
+        if (_mb.Horizontal != 0)
+        {
+            moveSide(axisHor);
+        }
+#elif UNITY_EDITOR
         if (Input.GetAxis("Horizontal") != 0)
         {
             moveSide(Input.GetAxis("Horizontal"));
+            _sf.moveSide(Input.GetAxis("Horizontal"));
         }
+#endif
         else if (_rotationZ != 0)
         {
             straightenCar();
@@ -41,14 +53,15 @@ public class CarController : MonoBehaviour {
         {
             _speedVer = 100 + Input.GetAxis("Vertical") * 30;
         }*/
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, -_rotationZ);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, _rotationZ);
     }
 
     private void moveSide(float hor)
     {
+        _sf.moveSide(hor);
         _rotationZ += _rotationSpeed * hor;
         _rotationZ = Mathf.Clamp(_rotationZ, -_MAX_ROTATION, _MAX_ROTATION);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, -_rotationZ);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, _rotationZ);
         float accelerationFactor = Mathf.Abs(_rotationZ / _MAX_ROTATION);
         _donut.RotateHorizontal(Time.deltaTime * hor * _speedHor * accelerationFactor);
     }
