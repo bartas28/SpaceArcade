@@ -5,6 +5,8 @@ using UnityEngine;
 public class RotatingObject : MonoBehaviour {
 
     [SerializeField]
+    private Vector3 _rotationDirection;
+    [SerializeField]
     private float _rotationSpeed = 3f;
 
 	// Use this for initialization
@@ -12,8 +14,8 @@ public class RotatingObject : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
+	// Update is called once per fra me
 	void Update () {
-        this.transform.Rotate(new Vector3(0, 0, _rotationSpeed));
+        this.transform.Rotate(new Vector3(_rotationDirection.x * _rotationSpeed, _rotationDirection.y * _rotationSpeed, _rotationDirection.z * _rotationSpeed));
 	}
 }
