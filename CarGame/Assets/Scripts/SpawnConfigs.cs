@@ -10,6 +10,8 @@ public class SpawnConfigs : MonoBehaviour {
     private int _objectsMax = 5;
     [SerializeField]
     private int _fuelSize = 0;
+    [SerializeField]
+    private float _spawnProbability = 1;
 
     public float LifeTime
     {
@@ -32,6 +34,14 @@ public class SpawnConfigs : MonoBehaviour {
         get
         {
             return _fuelSize;
+        }
+    }
+
+    public float SpawnProbability
+    {
+        get
+        {
+            return _spawnProbability;
         }
     }
 }

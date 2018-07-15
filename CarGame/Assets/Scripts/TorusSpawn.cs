@@ -31,7 +31,11 @@ public class TorusSpawn : MonoBehaviour {
         {
             if(_objectsCount < objectPrefab.GetComponent<SpawnConfigs>().ObjectsMax)
             {
-                StartCoroutine(SpawnObject());
+                float rand = Random.Range(0, 1);
+                if (rand < objectPrefab.GetComponent<SpawnConfigs>().SpawnProbability)
+                {
+                    StartCoroutine(SpawnObject());
+                }
             }
             yield return new WaitForSeconds(_spawnDelay);
         }
