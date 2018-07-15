@@ -33,8 +33,8 @@ public class CarController : MonoBehaviour {
     {
         moveStraight(_speedVer);
         float axisHor = _mb.Horizontal;
-#if ANDROID
-        if (_mb.Horizontal != 0)
+#if UNITY_ANDROID
+        if (axisHor != 0)
         {
             moveSide(axisHor);
         }

@@ -7,6 +7,7 @@ public class MoveButton : MonoBehaviour {
     [SerializeField]
     private float _horizontal;
     private float _horizontalDelta;
+    private float _BASE_HORIZONTAL = 0.05f;
     [SerializeField]
     private float _HOLD_DELAY = 0.02f;
     private bool _hold;
@@ -39,18 +40,18 @@ public class MoveButton : MonoBehaviour {
     public void OnPointerUp()
     {
         _hold = false;
-        _horizontal = 0f;
+        StartCoroutine(PointerRelease());
     }
 
     private IEnumerator PointerHold(string direction)
     {
         if (direction == "left")
         {
-            _horizontalDelta = -0.05f;
+            _horizontalDelta = -_BASE_HORIZONTAL;
         }
         else if (direction == "right")
         {
-            _horizontalDelta = 0.05f;
+            _horizontalDelta = _BASE_HORIZONTAL;
         }
         else
         {
@@ -67,6 +68,23 @@ public class MoveButton : MonoBehaviour {
             else if (_horizontal < -1f)
             {
                 _horizontal = -1f;
+            }
+            yield return new WaitForSeconds(_HOLD_DELAY);
+        }
+    }
+
+    private IEnumerator PointerRelease()
+    {
+        _horizontalDelta = -Mathf.Sign(_horizontal) * _BASE_HORIZONTAL;
+        while (!_hold && _horizontal != 0)
+        {
+            if(_horizontal < _BASE_HORIZONTAL && _horizontal > -_BASE_HORIZONTAL)
+            {
+                _horizontal = 0f;
+            }
+            else
+            {
+                _horizontal *= 0.6f;
             }
             yield return new WaitForSeconds(_HOLD_DELAY);
         }
