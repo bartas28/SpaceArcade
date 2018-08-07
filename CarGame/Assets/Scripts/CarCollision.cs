@@ -38,6 +38,20 @@ public class CarCollision : MonoBehaviour {
             _player.refuel(col.gameObject.transform.parent.gameObject.transform.parent.GetComponent<SpawnConfigs>().FuelSize);
             Destroy(col.gameObject);
         }
+        else if (col.CompareTag("Magnet")){
+            _player.triggerMagnet();
+            Destroy(col.transform.parent.gameObject);
+        }
+        else if (col.CompareTag("Shield"))
+        {
+            _player.triggerShield();
+            Destroy(col.gameObject);
+        }
+        else if (col.CompareTag("Clock"))
+        {
+            _player.triggerClock();
+            Destroy(col.transform.parent.gameObject);
+        }
     }
 
 }

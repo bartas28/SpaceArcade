@@ -47,4 +47,25 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void triggerMagnet()
+    {
+        //TODO
+        Debug.Log("Magnet taken");
+        return;
+    }
+
+    public void triggerShield()
+    {
+        //TODO
+        Debug.Log("Shield taken");
+        return;
+    }
+
+    public void triggerClock()
+    {
+        //TODO
+        Debug.Log("Clock taken");
+        return;
+    }
+
 }

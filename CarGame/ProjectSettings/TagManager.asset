@@ -8,6 +8,9 @@ TagManager:
   - Good
   - Enemy
   - Fuel
+  - Magnet
+  - Clock
+  - Shield
   layers:
   - Default
   - TransparentFX
