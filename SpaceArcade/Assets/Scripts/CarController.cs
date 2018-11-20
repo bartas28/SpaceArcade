@@ -18,7 +18,7 @@ public class CarController : MonoBehaviour {
 
     [SerializeField]
     private float _rotationZ = 0;
-    private float _rotationSpeed = 5f;
+    private float _rotationSpeed = 40f;
     private float _straightenSpeed = 15f;
     private float _MIN_ANGLE = 0.5f;  //minimum angle of car in Y axis
 

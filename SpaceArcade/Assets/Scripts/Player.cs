@@ -6,30 +6,59 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour {
 
     [SerializeField]
-    public float fuel; //fuel in percents
-    private float _fuelUsage = 4f;
-    private float _fuelUsageDelay = 1f;
+    public float fuel;
     private float _currentFuelUsage;
-    private const float _FUEL_MAX = 100f;
+    private int _life;
 
-	// Use this for initialization
-	void Start () {
-        fuel = 100f;
-        _currentFuelUsage = _fuelUsage;
+    public int Life
+    {
+        get
+        {
+            return _life;
+        }
+
+        set
+        {
+            if (value > GameConstants.PLAYER_LIFE_MAX)
+                value = GameConstants.PLAYER_LIFE_MAX;
+            if (value <= 0)
+                die();
+            _life = value;
+        }
+    }
+    
+    private Magnet _magnetEffect;
+    private Shield _shieldEffect;
+    private Clock _clockEffect;
+
+    // Use this for initialization
+    void Start () {
+        _magnetEffect = this.gameObject.GetComponent<Magnet>();
+        _shieldEffect = this.gameObject.GetComponent<Shield>();
+        _clockEffect = this.gameObject.GetComponent<Clock>();
+        fuel = GameConstants.FUEL_MAX;
+        Life = GameConstants.PLAYER_LIFE_MAX;
+        _currentFuelUsage = GameConstants.FUEL_USAGE;
         StartCoroutine(useFuel());
     }
 	
+    private void getDamage(int damage = 1)
+    {
+        Life -= damage;
+    }
+
     public void die()
     {
+        Debug.Log("YOU DIED");
         SceneManager.LoadScene(0);
     }
 
     public void refuel(float tank)
     {
         fuel += tank;
-        if(fuel > _FUEL_MAX)
+        if(fuel > GameConstants.FUEL_MAX)
         {
-            fuel = _FUEL_MAX;
+            fuel = GameConstants.FUEL_MAX;
         }
     }
 
@@ -40,32 +69,52 @@ public class Player : MonoBehaviour {
             fuel -= _currentFuelUsage;
             if (fuel <= 0f)
             {
-                //die();
+                outOfFuel();
             }
-            _currentFuelUsage = _fuelUsage;
-            yield return new WaitForSeconds(_fuelUsageDelay);
+            _currentFuelUsage = GameConstants.FUEL_USAGE;
+            yield return new WaitForSeconds(GameConstants.FUEL_USAGE_DELAY);
         }
     }
 
-    public void triggerMagnet()
+    public void collideEnemy(int damage=1)
     {
-        //TODO
-        Debug.Log("Magnet taken");
-        return;
+        if (_shieldEffect.Active)
+        {
+            _shieldEffect.clear();
+        }
+        else
+        {
+            getDamage(damage);
+        }
     }
 
-    public void triggerShield()
+    public void outOfFuel()
     {
-        //TODO
+        die();
+    }
+
+    public void collectShield()
+    {
+        StartCoroutine(_shieldEffect.trigger());
+        _magnetEffect.clear();
+        _clockEffect.clear();
         Debug.Log("Shield taken");
-        return;
     }
 
-    public void triggerClock()
+    public void collectClock()
     {
-        //TODO
+        StartCoroutine(_clockEffect.trigger());
+        _magnetEffect.clear();
+        _shieldEffect.clear();
         Debug.Log("Clock taken");
-        return;
+    }
+
+    public void collectMagnet()
+    {
+        StartCoroutine(_magnetEffect.trigger());
+        _clockEffect.clear();
+        _shieldEffect.clear();
+        Debug.Log("Magnet taken");
     }
 
 }

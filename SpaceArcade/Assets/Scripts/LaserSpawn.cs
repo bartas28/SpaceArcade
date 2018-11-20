@@ -9,8 +9,8 @@ public class LaserSpawn : MonoBehaviour {
     private int _laserCount = 0;
     private int _cycles = 0;
     private List<GameObject> _lasers;
-    private float _LASER_LENGTH = 0.35f;
-    private float _SPHERE_RADIUS = 0.35f;
+    //private float _LASER_LENGTH = 0.35f;
+    //private float _SPHERE_RADIUS = 0.35f;
 
     private Transform _donutModel;
 
@@ -52,10 +52,10 @@ public class LaserSpawn : MonoBehaviour {
     public GameObject generateLaser()
     {
         float angle = Random.Range(0, 359);
-        float angleRad = angle / 180 * Mathf.PI; 
-        Vector3 pos0, pos1;
-        pos0 = new Vector3(Mathf.Sin(angleRad) * _SPHERE_RADIUS, 0, Mathf.Cos(angleRad) * _SPHERE_RADIUS);
-        pos1 = new Vector3(pos0.x + Mathf.Sin(angleRad) * _LASER_LENGTH, 0, pos0.z + Mathf.Cos(angleRad) * _LASER_LENGTH);
+        //float angleRad = angle / 180 * Mathf.PI; 
+        //Vector3 pos0, pos1;
+        //pos0 = new Vector3(Mathf.Sin(angleRad) * _SPHERE_RADIUS, 0, Mathf.Cos(angleRad) * _SPHERE_RADIUS);
+        //pos1 = new Vector3(pos0.x + Mathf.Sin(angleRad) * _LASER_LENGTH, 0, pos0.z + Mathf.Cos(angleRad) * _LASER_LENGTH);
         GameObject laser = Instantiate(laserPrefab, _donutModel);
         laser.transform.Rotate(0, angle,  0);
         GameObject holder = laser.transform.Find("laser_rotator").gameObject;

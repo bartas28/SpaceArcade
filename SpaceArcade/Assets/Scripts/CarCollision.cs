@@ -30,26 +30,26 @@ public class CarCollision : MonoBehaviour {
         }
         else if (col.CompareTag("Enemy"))
         {
-            //_player.die();
+            _player.collideEnemy();
             Debug.Log("you died");
         }
         else if (col.CompareTag("Fuel"))
         {
-            _player.refuel(col.gameObject.transform.parent.gameObject.transform.parent.GetComponent<SpawnConfigs>().FuelSize);
+            _player.refuel((float)col.gameObject.transform.parent.gameObject.transform.parent.GetComponent<SpawnConfigs>().FuelSize / 100 * GameConstants.FUEL_MAX);
             Destroy(col.gameObject);
         }
         else if (col.CompareTag("Magnet")){
-            _player.triggerMagnet();
+            _player.collectMagnet();
             Destroy(col.transform.parent.gameObject);
         }
         else if (col.CompareTag("Shield"))
         {
-            _player.triggerShield();
+            _player.collectShield();
             Destroy(col.gameObject);
         }
         else if (col.CompareTag("Clock"))
         {
-            _player.triggerClock();
+            _player.collectClock();
             Destroy(col.transform.parent.gameObject);
         }
     }

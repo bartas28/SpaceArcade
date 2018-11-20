@@ -9,7 +9,7 @@ public class SpawnConfigs : MonoBehaviour {
     [SerializeField]
     private int _objectsMax = 5;
     [SerializeField]
-    private int _fuelSize = 0;
+    private int _fuelSize = 0;  // size of fuel in % of full tank
     [SerializeField]
     private float _spawnProbability = 1;
 

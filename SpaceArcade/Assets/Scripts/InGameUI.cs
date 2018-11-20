@@ -15,6 +15,6 @@ public class InGameUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        fuelBar.rectTransform.localScale = new Vector2(_player.fuel / 100, fuelBar.rectTransform.localScale.y);
+        fuelBar.rectTransform.localScale = new Vector2(_player.fuel / GameConstants.FUEL_MAX, fuelBar.rectTransform.localScale.y);
     }
 }
